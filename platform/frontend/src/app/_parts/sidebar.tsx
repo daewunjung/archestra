@@ -1,13 +1,13 @@
-"use client";
-import { SignedIn, UserButton } from "@daveyplate/better-auth-ui";
+'use client';
+import { SignedIn, UserButton } from '@daveyplate/better-auth-ui';
 import {
   COMMUNITY_DOCS_URL,
   COMMUNITY_SLACK_URL,
   E2eTestId,
   GITHUB_REPO_NEW_ISSUE_URL,
   GITHUB_REPO_URL,
-} from "@shared";
-import { requiredPagePermissionsMap } from "@shared/access-control";
+} from '@shared';
+import { requiredPagePermissionsMap } from '@shared/access-control';
 import {
   BookOpen,
   Bot,
@@ -23,13 +23,13 @@ import {
   Settings,
   Slack,
   Star,
-} from "lucide-react";
-import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
-import React from "react";
-import { ChatSidebarSection } from "@/app/_parts/chat-sidebar-section";
-import { AppLogo } from "@/components/app-logo";
-import { SidebarWarningsAccordion } from "@/components/sidebar-warnings-accordion";
+} from 'lucide-react';
+import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
+import React from 'react';
+import { ChatSidebarSection } from '@/app/_parts/chat-sidebar-section';
+import { AppLogo } from '@/components/app-logo';
+import { SidebarWarningsAccordion } from '@/components/sidebar-warnings-accordion';
 import {
   Sidebar,
   SidebarContent,
@@ -45,14 +45,14 @@ import {
   SidebarMenuSubItem,
   SidebarTrigger,
   useSidebar,
-} from "@/components/ui/sidebar";
-import { useIsAuthenticated } from "@/lib/auth/auth.hook";
-import { useHasPermissions, usePermissionMap } from "@/lib/auth/auth.query";
-import config from "@/lib/config/config";
-import { useEnterpriseFeature } from "@/lib/config/config.query";
-import { useGithubStars } from "@/lib/github/github.query";
-import { useAppIconLogo } from "@/lib/hooks/use-app-name";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/sidebar';
+import { useIsAuthenticated } from '@/lib/auth/auth.hook';
+import { useHasPermissions, usePermissionMap } from '@/lib/auth/auth.query';
+import config from '@/lib/config/config';
+import { useEnterpriseFeature } from '@/lib/config/config.query';
+import { useGithubStars } from '@/lib/github/github.query';
+import { useAppIconLogo } from '@/lib/hooks/use-app-name';
+import { cn } from '@/lib/utils';
 
 interface NavSubItem {
   title: string;
@@ -80,117 +80,117 @@ interface NavGroup {
 // Primary nav items shown in the header (flat list, like sidebar-10 NavMain)
 const headerNavItems: NavItem[] = [
   {
-    title: "New Chat",
-    url: "/chat",
+    title: 'New Chat',
+    url: '/chat',
     icon: MessageCircle,
-    customIsActive: (pathname: string) => pathname === "/chat",
+    customIsActive: (pathname: string) => pathname === '/chat',
   },
 ];
 
 // Labeled groups shown in the scrollable content (like sidebar-10 Favorites/Workspaces)
 const contentNavGroups: NavGroup[] = [
   {
-    label: "Agents",
+    label: 'Agents',
     items: [
       {
-        title: "Agents",
-        url: "/agents",
+        title: 'Agents',
+        url: '/agents',
         icon: Bot,
         customIsActive: (pathname: string) =>
-          pathname.startsWith("/agents") &&
-          !pathname.startsWith("/agents/triggers"),
+          pathname.startsWith('/agents') &&
+          !pathname.startsWith('/agents/triggers'),
         subItems: [
           {
-            title: "Scheduled",
-            url: "/scheduled-tasks",
+            title: 'Scheduled',
+            url: '/scheduled-tasks',
             customIsActive: (pathname: string) =>
-              pathname.startsWith("/scheduled-tasks"),
+              pathname.startsWith('/scheduled-tasks'),
           },
           {
-            title: "Triggers",
-            url: "/agents/triggers",
+            title: 'Triggers',
+            url: '/agents/triggers',
             customIsActive: (pathname: string) =>
-              pathname.startsWith("/agents/triggers"),
+              pathname.startsWith('/agents/triggers'),
           },
         ],
       },
     ],
   },
   {
-    label: "MCP & Tools",
+    label: 'MCP & Tools',
     items: [
       {
-        title: "MCPs",
-        url: "/mcp/registry",
+        title: 'MCPs',
+        url: '/mcp/registry',
         icon: Route,
         customIsActive: (pathname: string) =>
-          pathname.startsWith("/mcp/registry"),
+          pathname.startsWith('/mcp/registry'),
         subItems: [
           {
-            title: "Gateways",
-            url: "/mcp/gateways",
+            title: 'Gateways',
+            url: '/mcp/gateways',
             customIsActive: (pathname: string) =>
-              pathname.startsWith("/mcp/gateways"),
+              pathname.startsWith('/mcp/gateways'),
           },
           {
-            title: "Guardrails",
-            url: "/mcp/tool-guardrails",
+            title: 'Guardrails',
+            url: '/mcp/tool-guardrails',
             testId: E2eTestId.SidebarNavGuardrails,
             customIsActive: (pathname: string) =>
-              pathname.startsWith("/mcp/tool-guardrails"),
+              pathname.startsWith('/mcp/tool-guardrails'),
           },
         ],
       },
     ],
   },
   {
-    label: "LLM Proxies",
+    label: 'LLM Proxies',
     items: [
       {
-        title: "LLM Proxies",
-        url: "/llm/proxies",
+        title: 'LLM Proxies',
+        url: '/llm/proxies',
         icon: Network,
-        customIsActive: (pathname: string) => pathname === "/llm/proxies",
+        customIsActive: (pathname: string) => pathname === '/llm/proxies',
         subItems: [
           {
-            title: "Providers",
-            url: "/llm/providers/api-keys",
+            title: 'Providers',
+            url: '/llm/providers/api-keys',
             customIsActive: (pathname: string) =>
-              pathname.startsWith("/llm/providers"),
+              pathname.startsWith('/llm/providers'),
           },
           {
-            title: "Costs & Limits",
-            url: "/llm/costs",
+            title: 'Costs & Limits',
+            url: '/llm/costs',
           },
         ],
       },
     ],
   },
   {
-    label: "Other",
+    label: 'Other',
     items: [
       {
-        title: "Knowledge",
-        url: "/knowledge/knowledge-bases",
+        title: 'Knowledge',
+        url: '/knowledge/knowledge-bases',
         icon: Database,
         customIsActive: (pathname: string) =>
-          pathname.startsWith("/knowledge") &&
-          !pathname.startsWith("/knowledge/connectors"),
+          pathname.startsWith('/knowledge') &&
+          !pathname.startsWith('/knowledge/connectors'),
         subItems: [
           {
-            title: "Connectors",
-            url: "/knowledge/connectors",
+            title: 'Connectors',
+            url: '/knowledge/connectors',
             customIsActive: (pathname: string) =>
-              pathname.startsWith("/knowledge/connectors"),
+              pathname.startsWith('/knowledge/connectors'),
           },
         ],
       },
       {
-        title: "Logs",
-        url: "/llm/logs",
+        title: 'Logs',
+        url: '/llm/logs',
         icon: MessagesSquare,
         customIsActive: (pathname: string) =>
-          pathname.startsWith("/llm/logs") || pathname.startsWith("/mcp/logs"),
+          pathname.startsWith('/llm/logs') || pathname.startsWith('/mcp/logs'),
       },
     ],
   },
@@ -235,7 +235,7 @@ const NavPrimary = ({
           <span>{item.title}</span>
         </Link>
       </SidebarMenuButton>
-      {item.title === "New Chat" && chatSection}
+      {item.title === 'New Chat' && chatSection}
       {item.subItems && item.subItems.length > 0 && (
         <SidebarMenuSub className="mx-0 ml-3.5 px-0 pl-2.5">
           {item.subItems
@@ -333,7 +333,7 @@ const NavSecondary = ({
           ))}
           {!config.enterpriseFeatures.fullWhiteLabeling && (
             <>
-              <SidebarMenuItem>
+              {/* <SidebarMenuItem>
                 <SidebarMenuButton asChild tooltip="Star us on GitHub">
                   <a
                     href={GITHUB_REPO_URL}
@@ -386,7 +386,7 @@ const NavSecondary = ({
                     <span>Report a bug</span>
                   </a>
                 </SidebarMenuButton>
-              </SidebarMenuItem>
+              </SidebarMenuItem> */}
             </>
           )}
         </SidebarMenu>
@@ -400,17 +400,17 @@ export function AppSidebar() {
   const searchParams = useSearchParams();
   const isAuthenticated = useIsAuthenticated();
   const { data: starCount } = useGithubStars();
-  const formattedStarCount = starCount ?? "";
+  const formattedStarCount = starCount ?? '';
   const permissionMap = usePermissionMap(requiredPagePermissionsMap);
   const appIconLogo = useAppIconLogo();
-  const knowledgeBaseEnabled = useEnterpriseFeature("knowledgeBase");
+  const knowledgeBaseEnabled = useEnterpriseFeature('knowledgeBase');
   // Connect page requires at least one of these (OR logic)
-  const { data: canReadAgent } = useHasPermissions({ agent: ["read"] });
+  const { data: canReadAgent } = useHasPermissions({ agent: ['read'] });
   const { data: canReadLlmProxy } = useHasPermissions({
-    llmProxy: ["read"],
+    llmProxy: ['read'],
   });
   const { data: canReadMcpGateway } = useHasPermissions({
-    mcpGateway: ["read"],
+    mcpGateway: ['read'],
   });
   const showConnect = canReadAgent || canReadLlmProxy || canReadMcpGateway;
 
@@ -419,7 +419,7 @@ export function AppSidebar() {
     if (knowledgeBaseEnabled) return contentNavGroups;
     return contentNavGroups.map((group) => ({
       ...group,
-      items: group.items.filter((item) => item.title !== "Knowledge"),
+      items: group.items.filter((item) => item.title !== 'Knowledge'),
     }));
   }, [knowledgeBaseEnabled]);
 
@@ -434,16 +434,16 @@ export function AppSidebar() {
 
     if (showConnect) {
       links.push({
-        href: "/connection",
+        href: '/connection',
         icon: <Cable className="h-4 w-4" />,
-        label: "Connect",
+        label: 'Connect',
       });
     }
 
     links.push({
-      href: "/settings/account",
+      href: '/settings/account',
       icon: <Settings className="h-4 w-4" />,
-      label: "Settings",
+      label: 'Settings',
       separator: true,
     });
 
@@ -506,15 +506,15 @@ export function AppSidebar() {
               <div
                 data-testid={E2eTestId.SidebarUserProfile}
                 className={cn(
-                  "overflow-hidden",
+                  'overflow-hidden',
                   // Collapsed: hide text/chevron, show only avatar circle
-                  "group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center",
-                  "group-data-[collapsible=icon]:[&_button]:size-7 group-data-[collapsible=icon]:[&_button]:min-w-0 group-data-[collapsible=icon]:[&_button]:rounded-full group-data-[collapsible=icon]:[&_button]:p-0",
-                  "group-data-[collapsible=icon]:[&_[data-slot=avatar]]:size-7",
-                  "group-data-[collapsible=icon]:[&_[data-slot=avatar-fallback]]:text-[9px]",
-                  "group-data-[collapsible=icon]:[&_button>div]:gap-0",
-                  "group-data-[collapsible=icon]:[&_button>div>div:not([data-slot=avatar])]:hidden",
-                  "group-data-[collapsible=icon]:[&_button>svg]:hidden",
+                  'group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center',
+                  'group-data-[collapsible=icon]:[&_button]:size-7 group-data-[collapsible=icon]:[&_button]:min-w-0 group-data-[collapsible=icon]:[&_button]:rounded-full group-data-[collapsible=icon]:[&_button]:p-0',
+                  'group-data-[collapsible=icon]:[&_[data-slot=avatar]]:size-7',
+                  'group-data-[collapsible=icon]:[&_[data-slot=avatar-fallback]]:text-[9px]',
+                  'group-data-[collapsible=icon]:[&_button>div]:gap-0',
+                  'group-data-[collapsible=icon]:[&_button>div>div:not([data-slot=avatar])]:hidden',
+                  'group-data-[collapsible=icon]:[&_button>svg]:hidden',
                 )}
               >
                 <UserButton
